@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alpine.js Course</title>
+    <script defer src="https://unpkg.com/alpinejs@3.10.2/dist/cdn.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="app.js"></script>
+  </head>
+  <body>
+    
+    <div x-data="{name: 'Name', message: 'Hello <b>World</b>' }" class="my-4">
+      <p class="text-xl font-bold">x-data, x-text, x-html</p>
+      <p x-text="name"></p>
+      <p x-html="message"></p>
+    </div>
+    <hr>
+
+    <div x-data="{message: 'Click me to change', change(){ this.message = 'Change message' } }" class="my-4">
+      <p class="text-xl font-bold">x-data with methods</p>
+      <span x-html="message" @click="change()"></span>
+    </div>
+    <hr>
+
+    <div x-data="{ open: false }" class="my-4">
+      <p class="text-xl font-bold">x-show & x-transition</p>
+      <button x-on:click="open = ! open">Open/Close</button>
+      <div
+        x-show="open"
+        x-transition:enter.duration.200ms
+        x-transition:leave.duration.2000ms
+      >
+        Content
+      </div>
+    </div>
+    <hr>
+
+    <div x-data="{ open: false }" class="my-4">
+      <p class="text-xl font-bold">x-if</p>
+      <button x-on:click="open = ! open">Open/Close</button>
+      <template x-if="open">
+        <div>Content</div>
+      </template>
+    </div>
+    <hr>
+
+    <div x-data="{ posts: [{id: 1, title: 'title 1'}, {id: 2, title: 'title 2'}] }" class="my-4">
+      <p class="text-xl font-bold">x-for</p>
+      <template x-for="(post, index) in posts" :key="post.id">
+        <h2 x-text="post.id + '. ' + post.title"></h2>
+      </template>
+    </div>
+    <hr>
+
+    <div x-data class="my-4">
+      <p class="text-xl font-bold">x-for in range</p>
+      <div class="flex">
+        <template x-for="n in 10">
+          <p x-text="n"></p>
+        </template>
+      </div>
+    </div>
+    <hr>
+
+    <div x-data="{clicked: false}" class="my-4">
+      <p class="text-xl font-bold">x-bind: class</p>
+      <button
+        class="red"
+        :class="clicked ? 'clicked' : ''"
+        @click="clicked = !clicked"
+      >
+        Click me
+      </button>
+    </div>
+
+    <div x-data="{clicked: false}" class="my-4">
+      <button class="yellow" :class="{clicked}" @click="clicked = !clicked">
+        Click me
+      </button>
+    </div>
+    <style>
+      .red {
+        background-color: red;
+      }
+      .clicked {
+        background-color: green;
+      }
+    </style>
+    <hr>
+
+    <div x-data="{clicked: false}" class="my-4">
+      <p class="text-xl font-bold">x-bind: class (Multiple)</p>
+      <button
+        class="red"
+        :class="clicked ? ['green', 'test'] : ''"
+        @click="clicked = !clicked"
+      >
+        Click me
+      </button>
+    </div>
+
+    <style>
+      .red {
+        background-color: red;
+      }
+      .green {
+        background-color: green;
+      }
+      .test {
+        color: purple;
+        font-weight: bold;
+      }
+    </style>
+    <hr>
+
+
+  </body>
+</html>
